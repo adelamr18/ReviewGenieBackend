@@ -1,0 +1,6 @@
+@ReviewGenie.WebApi_HostAddress = http://localhost:5240
+
+GET {{ReviewGenie.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
