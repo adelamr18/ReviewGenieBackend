@@ -8,7 +8,7 @@ namespace ReviewGenie.WebApi.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/onboarding")]
+[Route("onboarding")]
 public class OnboardingController : ControllerBase
 {
     private readonly IOnboardingService _svc;

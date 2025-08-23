@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace ReviewGenie.WebApi.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[Route("auth")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _auth;
@@ -18,6 +18,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register(RegisterDto dto)
     {
         var token = await _auth.RegisterAsync(dto.FullName, dto.Email, dto.Password, dto.ConfirmPassword);
+
         return Ok(new { token });
     }
 
@@ -25,6 +26,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(LoginDto dto)
     {
         var (jwt, refresh) = await _auth.LoginAsync(dto.Email, dto.Password);
+
         return Ok(new { token = jwt, refresh });
     }
 
@@ -35,6 +37,7 @@ public class AuthController : ControllerBase
         var uid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)
                    ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub)!);
         await _auth.LogoutAsync(uid, refresh);
+
         return Ok();
     }
 }
