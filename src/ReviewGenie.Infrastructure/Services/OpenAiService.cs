@@ -156,12 +156,12 @@ Response:";
         return basePrompt;
     }
 
-    private async Task<ReviewDto?> GetReviewForGenerationAsync(Guid reviewId)
+    private Task<ReviewDto?> GetReviewForGenerationAsync(Guid reviewId)
     {
         // This would typically come from a service, but for now we'll return null
         // In a real implementation, you'd inject IReviewService and call it
         // For now, we'll create a mock review for testing
-        return new ReviewDto(
+        return Task.FromResult<ReviewDto?>(new ReviewDto(
             reviewId,
             Guid.NewGuid(),
             "Google",
@@ -180,6 +180,6 @@ Response:";
             null,
             null,
             true
-        );
+        ));
     }
 }

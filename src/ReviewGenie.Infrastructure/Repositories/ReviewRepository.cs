@@ -18,21 +18,18 @@ public class ReviewRepository : IReviewRepository
     public async Task<Review?> GetByIdAsync(Guid id)
     {
         return await _context.Reviews
-            .Include(r => r.Business)
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
     public async Task<Review?> GetByExternalIdAsync(string platform, string externalId)
     {
         return await _context.Reviews
-            .Include(r => r.Business)
             .FirstOrDefaultAsync(r => r.Platform == platform && r.ExternalId == externalId);
     }
 
     public async Task<ReviewListDto> GetReviewsAsync(ReviewFiltersDto filters)
     {
         var query = _context.Reviews
-            .Include(r => r.Business)
             .AsQueryable();
 
         // Apply filters

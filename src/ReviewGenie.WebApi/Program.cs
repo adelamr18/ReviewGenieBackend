@@ -9,6 +9,7 @@ using ReviewGenie.Infrastructure.Auth;
 using ReviewGenie.Infrastructure.Data;
 using ReviewGenie.Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
+using ReviewGenie.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var cfg = builder.Configuration;

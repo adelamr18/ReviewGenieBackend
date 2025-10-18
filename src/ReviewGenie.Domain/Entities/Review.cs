@@ -4,7 +4,6 @@ public class Review
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public Guid BusinessId { get; init; }
-    public Business Business { get; init; } = null!;
     
     public string Platform { get; private set; } = null!; // "Google" or "Yelp"
     public string ExternalId { get; private set; } = null!; // Platform-specific review ID

@@ -4,7 +4,6 @@ public class ReviewMetrics
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public Guid BusinessId { get; init; }
-    public Business Business { get; init; } = null!;
     
     public DateTime Date { get; init; }
     public int TotalReviews { get; init; }

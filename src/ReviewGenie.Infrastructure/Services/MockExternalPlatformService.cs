@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using ReviewGenie.Application.Contracts;
 using ReviewGenie.Application.Dto;
 
