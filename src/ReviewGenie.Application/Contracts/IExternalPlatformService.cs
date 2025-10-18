@@ -21,3 +21,4 @@ public interface IYelpService : IExternalPlatformService
     Task<List<CreateReviewDto>> GetReviewsAsync(string businessId);
     Task<bool> PostResponseAsync(string businessId, string reviewId, string response);
 }
+

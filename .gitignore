@@ -25,4 +25,10 @@ yarn-error.log*
 Thumbs.db
 ehthumbs.db
 
+# Development configuration files with secrets
+appsettings.Development.json
+appsettings.Local.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+
 

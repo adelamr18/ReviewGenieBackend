@@ -115,3 +115,4 @@ public class MockExternalPlatformService : IExternalPlatformService
         return true;
     }
 }
+

@@ -7,20 +7,20 @@ using ReviewGenie.Application.Dto;
 
 namespace ReviewGenie.Infrastructure.Services;
 
-public class OpenAiService : IAiService
+public class GroqAiService : IAiService
 {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
-    private readonly ILogger<OpenAiService> _logger;
+    private readonly ILogger<GroqAiService> _logger;
     private readonly string _apiKey;
-    private readonly string _baseUrl = "https://api.openai.com/v1/chat/completions";
+    private readonly string _baseUrl = "https://api.groq.com/openai/v1/chat/completions";
 
-    public OpenAiService(HttpClient httpClient, IConfiguration configuration, ILogger<OpenAiService> logger)
+    public GroqAiService(HttpClient httpClient, IConfiguration configuration, ILogger<GroqAiService> logger)
     {
         _httpClient = httpClient;
         _configuration = configuration;
         _logger = logger;
-        _apiKey = _configuration["OpenAI:ApiKey"] ?? throw new InvalidOperationException("OpenAI API key not configured");
+        _apiKey = _configuration["Groq:ApiKey"] ?? throw new InvalidOperationException("Groq API key not configured");
         
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
     }
@@ -97,7 +97,7 @@ Sentiment:";
     {
         var requestBody = new
         {
-            model = "gpt-3.5-turbo",
+            model = "llama-3.1-70b-versatile",
             messages = new[]
             {
                 new { role = "system", content = "You are a helpful assistant that analyzes reviews and generates professional, on-brand responses for local businesses." },

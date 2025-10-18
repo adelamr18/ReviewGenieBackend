@@ -15,3 +15,4 @@ public interface IReviewService
     Task<List<ReviewDto>> SyncReviewsAsync(Guid businessId);
     Task<ReviewMetricsDto> CalculateDailyMetricsAsync(Guid businessId, DateTime date);
 }
+

@@ -26,7 +26,7 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddScoped<IAiService, OpenAiService>();
+builder.Services.AddScoped<IAiService, GroqAiService>();
 builder.Services.AddScoped<IExternalPlatformService, MockExternalPlatformService>();
 
 builder.Services.Configure<JwtSettings>(cfg.GetSection("Jwt"));
@@ -66,8 +66,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add HttpClient for OpenAI
-builder.Services.AddHttpClient<IAiService, OpenAiService>();
+// Add HttpClient for Groq
+builder.Services.AddHttpClient<IAiService, GroqAiService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReviewGenie.WebApi", Version = "v1" });

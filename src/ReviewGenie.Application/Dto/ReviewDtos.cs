@@ -90,3 +90,4 @@ public record ReviewMetricsDto(
     double AverageRating,
     int NewReviews
 );
+
