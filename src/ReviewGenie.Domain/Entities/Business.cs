@@ -15,6 +15,8 @@ public class Business
     public string Description { get; private set; } = null!;
 
     public ICollection<PlatformLink> Platforms { get; } = new List<PlatformLink>();
+    public ICollection<Review> Reviews { get; } = new List<Review>();
+    public ICollection<ReviewMetrics> ReviewMetrics { get; } = new List<ReviewMetrics>();
 
     public static Business Create(Guid ownerId, string name, string type,
                                   Address address, string phone,

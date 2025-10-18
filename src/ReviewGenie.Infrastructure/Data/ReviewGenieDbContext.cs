@@ -12,6 +12,8 @@ public class ReviewGenieDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<Business> Businesses => Set<Business>();
     public DbSet<PlatformLink> Platforms => Set<PlatformLink>();
+    public DbSet<Review> Reviews => Set<Review>();
+    public DbSet<ReviewMetrics> ReviewMetrics => Set<ReviewMetrics>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -32,6 +34,26 @@ public class ReviewGenieDbContext : DbContext
             .HasForeignKey(pl => pl.BusinessId)
             .OnDelete(DeleteBehavior.Cascade);
         b.Entity<PlatformLink>().HasIndex(pl => new { pl.BusinessId, pl.Platform }).IsUnique();
+
+        // Review entity configuration
+        b.Entity<Review>()
+            .HasOne<Business>()
+            .WithMany(bu => bu.Reviews)
+            .HasForeignKey(r => r.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
+        b.Entity<Review>().HasIndex(r => new { r.Platform, r.ExternalId }).IsUnique();
+        b.Entity<Review>().HasIndex(r => r.BusinessId);
+        b.Entity<Review>().HasIndex(r => r.PostedAt);
+        b.Entity<Review>().HasIndex(r => r.Sentiment);
+
+        // ReviewMetrics entity configuration
+        b.Entity<ReviewMetrics>()
+            .HasOne<Business>()
+            .WithMany(bu => bu.ReviewMetrics)
+            .HasForeignKey(rm => rm.BusinessId)
+            .OnDelete(DeleteBehavior.Cascade);
+        b.Entity<ReviewMetrics>().HasIndex(rm => new { rm.BusinessId, rm.Date }).IsUnique();
+        b.Entity<ReviewMetrics>().HasIndex(rm => rm.Date);
 
         base.OnModelCreating(b);
     }
