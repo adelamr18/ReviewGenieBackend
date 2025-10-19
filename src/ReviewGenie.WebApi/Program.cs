@@ -22,12 +22,14 @@ builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 builder.Services.AddScoped<IPlatformLinkRepository, PlatformLinkRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IBusinessIntegrationRepository, BusinessIntegrationRepository>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IAiService, GroqAiService>();
-builder.Services.AddScoped<IExternalPlatformService, MockExternalPlatformService>();
+builder.Services.AddScoped<IExternalPlatformService, ExternalPlatformService>();
+builder.Services.AddScoped<IGoogleBusinessService, GoogleBusinessService>();
 
 builder.Services.Configure<JwtSettings>(cfg.GetSection("Jwt"));
 builder.Services.AddSingleton<IJwtFactory, JwtFactory>();
@@ -59,7 +61,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+        policy.WithOrigins("http://localhost:8080", "http://localhost:5173", "http://localhost:3000")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -68,6 +70,8 @@ builder.Services.AddCors(options =>
 
 // Add HttpClient for Groq
 builder.Services.AddHttpClient<IAiService, GroqAiService>();
+// Add HttpClient for Google Business Service
+builder.Services.AddHttpClient<IGoogleBusinessService, GoogleBusinessService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReviewGenie.WebApi", Version = "v1" });

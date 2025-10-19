@@ -14,5 +14,12 @@ public class BusinessRepository : IBusinessRepository
     public Task<Business?> GetAsync(Guid id)         => _db.Businesses
                                                            .Include(b => b.Platforms)
                                                            .FirstOrDefaultAsync(b => b.Id == id);
+    public Task<List<Business>> GetAllAsync()        => _db.Businesses
+                                                           .Include(b => b.Platforms)
+                                                           .ToListAsync();
+    public Task<List<Business>> GetByOwnerIdAsync(Guid ownerId) => _db.Businesses
+                                                           .Include(b => b.Platforms)
+                                                           .Where(b => b.OwnerId == ownerId)
+                                                           .ToListAsync();
     public Task SaveChangesAsync()                   => _db.SaveChangesAsync();
 }

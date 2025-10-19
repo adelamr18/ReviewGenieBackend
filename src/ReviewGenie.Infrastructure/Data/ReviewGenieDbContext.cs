@@ -14,6 +14,7 @@ public class ReviewGenieDbContext : DbContext
     public DbSet<PlatformLink> Platforms => Set<PlatformLink>();
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<ReviewMetrics> ReviewMetrics => Set<ReviewMetrics>();
+    public DbSet<BusinessIntegration> BusinessIntegrations => Set<BusinessIntegration>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -44,6 +45,10 @@ public class ReviewGenieDbContext : DbContext
         // ReviewMetrics entity configuration
         b.Entity<ReviewMetrics>().HasIndex(rm => new { rm.BusinessId, rm.Date }).IsUnique();
         b.Entity<ReviewMetrics>().HasIndex(rm => rm.Date);
+
+        // BusinessIntegration entity configuration
+        b.Entity<BusinessIntegration>().HasIndex(bi => new { bi.BusinessId, bi.Platform }).IsUnique();
+        b.Entity<BusinessIntegration>().HasIndex(bi => bi.ExternalAccountId);
 
         base.OnModelCreating(b);
     }
